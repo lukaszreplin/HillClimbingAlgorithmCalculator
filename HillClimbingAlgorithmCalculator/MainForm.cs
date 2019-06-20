@@ -34,10 +34,12 @@ namespace HillClimbingAlgorithmCalculator
                 return;
             }
             Algorithm algorithm = new Algorithm(_parameters);
+            Cursor = Cursors.WaitCursor;
             await Task.Run(() => 
             {
                 algorithm.Start();
             });
+            Cursor = Cursors.Arrow;
         }
 
         private bool AssignParameters()
