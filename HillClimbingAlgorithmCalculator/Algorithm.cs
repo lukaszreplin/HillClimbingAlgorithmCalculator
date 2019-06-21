@@ -12,26 +12,44 @@ namespace HillClimbingAlgorithmCalculator
         private readonly Parameters _parameters;
         private readonly Random _randomizer;
         private readonly int _size;
+        private Calculations _calculations;
 
-        private Individual _individual = new Individual();
-        private List<Individual> _mutated = new List<Individual>();
+        private Individual _individual;
+        private Individual _best = new Individual();
+        private List<Individual> _mutated;
+        private bool local = false;
+
+        private List<Individual> VCS = new List<Individual>();
+        private List<double> _bests = new List<double>();
+        private List<List<double>> _resValues = new List<List<double>>();
 
         public Algorithm(Parameters parameters)
         {
             _parameters = parameters;
             _randomizer = new Random();
-            _size = Calculations.GetL(_parameters.Precision, _parameters.From, _parameters.To);
+            _calculations = new Calculations(_parameters);
+            _size = _calculations.Resolution;
         }
 
         public Results Start()
         {
-            GetRandomIndividual();
-            Process();
-            return null;
+            for (int i = 1; i <= _parameters.T; i++)
+            {
+                Process();
+            }
+            return new Results()
+            {
+                XRealBest = _best.Real,
+                XBinBest = _best.Binary,
+                FXBest = _best.FunctionResult,
+                ResValues = _resValues,
+                Bests = _bests
+            };
         }
 
         private void GetRandomIndividual()
         {
+            _individual = new Individual();
             for (int i = 0; i < _size; i++)
             {
                 _individual.Binary += RandomUtils.GetRandomInt(0, 2, _randomizer).ToString();
@@ -40,25 +58,51 @@ namespace HillClimbingAlgorithmCalculator
 
         private void Process()
         {
-            // Utworznie zmutowanej populacji
-            for (int i = 0; i < _size; i++)
+            local = false;
+            GetRandomIndividual();
+            _mutated = new List<Individual>();
+            var tempList = new List<double>();
+            do
             {
-                if (_individual.Binary[i] == '0')
-                    _mutated.Add(new Individual() { Id = i + 1, Binary = _individual.Binary.ReplaceAtIndex(i, '1') });
+                
+                // Utworznie zmutowanej populacji
+                for (int i = 0; i < _size; i++)
+                {
+                    if (_individual.Binary[i] == '0')
+                        _mutated.Add(new Individual() { Id = i + 1, Binary = _individual.Binary.ReplaceAtIndex(i, '1') });
+                    else
+                        _mutated.Add(new Individual() { Id = i + 1, Binary = _individual.Binary.ReplaceAtIndex(i, '0') });
+                }
+                // Liczenie wartości funkcji
+                _individual.Real = _calculations.BinToReal(_individual.Binary);
+                _individual.FunctionResult = _calculations.GetFunctionResult(_individual.Real);
+
+                // Liczenie wartości funkcji zmutowanych
+                foreach (var item in _mutated)
+                {
+                    item.Real = _calculations.BinToReal(item.Binary);
+                    item.FunctionResult = _calculations.GetFunctionResult(item.Real);
+                }
+
+                var best = _mutated.OrderByDescending(_ => _.FunctionResult)
+                .FirstOrDefault();
+                tempList.Add(_individual.FunctionResult);
+                if (_individual.FunctionResult < best.FunctionResult)
+                {
+                    _individual = best;
+                }
                 else
-                    _mutated.Add(new Individual() { Id = i + 1, Binary = _individual.Binary.ReplaceAtIndex(i, '0') });
-            }
-
-            // Liczenie wartości funkcji
-            _individual.Real = _calc.BinToReal(Individual.Binary);
-            _individual.FunctionResult = GetFunctionResult(Individual.Real);
-
-            // Liczenie wartości funkcji zmutowanych
-            foreach (var item in _mutated)
-            {
-                item.Real = _calc.BinToReal(item.Binary);
-                item.FunctionResult = GetFunctionResult(item.Real);
-            }
+                {
+                    local = true;
+                    VCS.Add(_individual);
+                    if (_best.FunctionResult < _individual.FunctionResult)
+                    {
+                        _best = _individual;
+                    }
+                }
+            } while (!local);
+            _resValues.Add(tempList.OrderBy(_ => _).ToList());
+            _bests.Add(_best.FunctionResult);
         }
     }
 }

@@ -13,5 +13,9 @@ namespace HillClimbingAlgorithmCalculator.Models
         public string XBinBest { get; set; }
 
         public double FXBest { get; set; }
+
+        public List<List<double>> ResValues { get; set; }
+
+        public List<double> Bests { get; set; }
     }
 }

@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.fromTb = new System.Windows.Forms.TextBox();
             this.precisionCb = new System.Windows.Forms.ComboBox();
@@ -37,14 +40,16 @@
             this.tTb = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.resXRealTb = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.resXBinTb = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.resFXTb = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.resChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.resChart)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -132,14 +137,14 @@
             this.startButton.UseVisualStyleBackColor = false;
             this.startButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
-            // textBox4
+            // resXRealTb
             // 
-            this.textBox4.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox4.Location = new System.Drawing.Point(78, 30);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(167, 31);
-            this.textBox4.TabIndex = 10;
+            this.resXRealTb.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.resXRealTb.Location = new System.Drawing.Point(78, 30);
+            this.resXRealTb.Name = "resXRealTb";
+            this.resXRealTb.ReadOnly = true;
+            this.resXRealTb.Size = new System.Drawing.Size(167, 31);
+            this.resXRealTb.TabIndex = 10;
             // 
             // label5
             // 
@@ -151,14 +156,14 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "x real";
             // 
-            // textBox5
+            // resXBinTb
             // 
-            this.textBox5.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox5.Location = new System.Drawing.Point(307, 30);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(167, 31);
-            this.textBox5.TabIndex = 12;
+            this.resXBinTb.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.resXBinTb.Location = new System.Drawing.Point(307, 30);
+            this.resXBinTb.Name = "resXBinTb";
+            this.resXBinTb.ReadOnly = true;
+            this.resXBinTb.Size = new System.Drawing.Size(167, 31);
+            this.resXBinTb.TabIndex = 12;
             // 
             // label6
             // 
@@ -170,14 +175,14 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "x bin";
             // 
-            // textBox6
+            // resFXTb
             // 
-            this.textBox6.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox6.Location = new System.Drawing.Point(530, 30);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(167, 31);
-            this.textBox6.TabIndex = 14;
+            this.resFXTb.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.resFXTb.Location = new System.Drawing.Point(530, 30);
+            this.resFXTb.Name = "resFXTb";
+            this.resFXTb.ReadOnly = true;
+            this.resFXTb.Size = new System.Drawing.Size(167, 31);
+            this.resFXTb.TabIndex = 14;
             // 
             // label7
             // 
@@ -191,12 +196,12 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox4);
-            this.groupBox1.Controls.Add(this.textBox6);
+            this.groupBox1.Controls.Add(this.resXRealTb);
+            this.groupBox1.Controls.Add(this.resFXTb);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.textBox5);
+            this.groupBox1.Controls.Add(this.resXBinTb);
             this.groupBox1.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.groupBox1.Location = new System.Drawing.Point(12, 43);
             this.groupBox1.Name = "groupBox1";
@@ -205,12 +210,29 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Results";
             // 
+            // resChart
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.resChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.resChart.Legends.Add(legend1);
+            this.resChart.Location = new System.Drawing.Point(12, 135);
+            this.resChart.Name = "resChart";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.resChart.Series.Add(series1);
+            this.resChart.Size = new System.Drawing.Size(1184, 544);
+            this.resChart.TabIndex = 16;
+            this.resChart.Text = "chart1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1208, 691);
+            this.Controls.Add(this.resChart);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.tTb);
@@ -225,6 +247,7 @@
             this.Text = "Hill Climbing Algorithm Calculator";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.resChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,13 +264,14 @@
         private System.Windows.Forms.TextBox tTb;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button startButton;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox resXRealTb;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox resXBinTb;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox resFXTb;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart resChart;
     }
 }
 
