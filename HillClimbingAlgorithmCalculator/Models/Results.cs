@@ -17,5 +17,7 @@ namespace HillClimbingAlgorithmCalculator.Models
         public List<List<double>> ResValues { get; set; }
 
         public List<double> Bests { get; set; }
+
+        public int FoundIn { get; set; }
     }
 }

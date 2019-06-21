@@ -27,9 +27,13 @@ namespace HillClimbingAlgorithmCalculator
             precisionCb.SelectedIndex = 0;
             _parameters = new Parameters();
             resChart.ChartAreas[0].AxisX.Interval = 1;
-            resChart.ChartAreas[0].AxisX.IntervalOffset = 0;
+            resChart.ChartAreas[0].AxisX.Minimum = 0;
+            resChart.ChartAreas[0].AxisX.RoundAxisValues();
+            resChart.ChartAreas[0].AxisX.Title = "T";
+            resChart.ChartAreas[0].AxisY.Title = "f(x)";
+            resChart.Series[0].Name = "vc";
             var ser = new Series();
-            ser.Name = "Best";
+            ser.Name = "v best";
             ser.ChartType = SeriesChartType.Line;
             resChart.Series.Add(ser);
             resChart.ChartAreas[0].AxisX.MajorGrid.Enabled = true;
@@ -51,25 +55,27 @@ namespace HillClimbingAlgorithmCalculator
             resFXTb.Text = _results.FXBest.ToString();
             resXBinTb.Text = _results.XBinBest;
             resXRealTb.Text = _results.XRealBest.ToString();
+            foundInTb.Text = _results.FoundIn.ToString();
             Cursor = Cursors.Arrow;
             foreach (var sss in resChart.Series)
             {
                 sss.Points.Clear();
             }
             resChart.Series[0].ChartType = SeriesChartType.Point;
-            resChart.Series[0].Name = "Results";
+            
             for (int i = 0; i < _results.Bests.Count; i++)
             {
-                resChart.Series["Best"].Points.AddXY(i, _results.Bests[i]);
+                resChart.Series["v best"].Points.AddXY(i, _results.Bests[i]);
                 var resval = _results.ResValues[i];
                 int count = 1;
                 foreach (var elem in resval)
                 {
                     double xVal = i + (1.0 / resval.Count) * count;
-                    resChart.Series["Results"].Points.AddXY(xVal, elem);
+                    resChart.Series["vc"].Points.AddXY(xVal, elem);
                     count++;
                 }
             }
+            resChart.ChartAreas[0].AxisX.Maximum = _parameters.T;
         }
 
         private bool AssignParameters()

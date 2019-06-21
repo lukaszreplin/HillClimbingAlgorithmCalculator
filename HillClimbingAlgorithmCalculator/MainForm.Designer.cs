@@ -48,6 +48,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.resChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label8 = new System.Windows.Forms.Label();
+            this.foundInTb = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resChart)).BeginInit();
             this.SuspendLayout();
@@ -196,6 +198,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.foundInTb);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.resXRealTb);
             this.groupBox1.Controls.Add(this.resFXTb);
             this.groupBox1.Controls.Add(this.label5);
@@ -205,7 +209,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.groupBox1.Location = new System.Drawing.Point(12, 43);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(726, 85);
+            this.groupBox1.Size = new System.Drawing.Size(1086, 85);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Results";
@@ -225,6 +229,25 @@
             this.resChart.Size = new System.Drawing.Size(1184, 544);
             this.resChart.TabIndex = 16;
             this.resChart.Text = "chart1";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label8.Location = new System.Drawing.Point(703, 33);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(151, 23);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Found in iteration";
+            // 
+            // foundInTb
+            // 
+            this.foundInTb.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.foundInTb.Location = new System.Drawing.Point(860, 30);
+            this.foundInTb.Name = "foundInTb";
+            this.foundInTb.ReadOnly = true;
+            this.foundInTb.Size = new System.Drawing.Size(88, 31);
+            this.foundInTb.TabIndex = 16;
             // 
             // MainForm
             // 
@@ -272,6 +295,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataVisualization.Charting.Chart resChart;
+        private System.Windows.Forms.TextBox foundInTb;
+        private System.Windows.Forms.Label label8;
     }
 }
 

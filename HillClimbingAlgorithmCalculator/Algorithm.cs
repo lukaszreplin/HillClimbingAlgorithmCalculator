@@ -18,6 +18,7 @@ namespace HillClimbingAlgorithmCalculator
         private Individual _best = new Individual();
         private List<Individual> _mutated;
         private bool local = false;
+        private int _foundIn = 0;
 
         private List<Individual> VCS = new List<Individual>();
         private List<double> _bests = new List<double>();
@@ -35,7 +36,7 @@ namespace HillClimbingAlgorithmCalculator
         {
             for (int i = 1; i <= _parameters.T; i++)
             {
-                Process();
+                Process(i);
             }
             return new Results()
             {
@@ -43,7 +44,8 @@ namespace HillClimbingAlgorithmCalculator
                 XBinBest = _best.Binary,
                 FXBest = _best.FunctionResult,
                 ResValues = _resValues,
-                Bests = _bests
+                Bests = _bests,
+                FoundIn = _foundIn
             };
         }
 
@@ -56,7 +58,7 @@ namespace HillClimbingAlgorithmCalculator
             }
         }
 
-        private void Process()
+        private void Process(int iteration)
         {
             local = false;
             GetRandomIndividual();
@@ -97,7 +99,12 @@ namespace HillClimbingAlgorithmCalculator
                     VCS.Add(_individual);
                     if (_best.FunctionResult < _individual.FunctionResult)
                     {
+                        if (_individual.FunctionResult > _best.FunctionResult)
+                        {
+                            _foundIn = iteration;
+                        }
                         _best = _individual;
+                        
                     }
                 }
             } while (!local);
